@@ -1,4 +1,10 @@
-<!doctype html>
+# -*- coding: utf-8 -*-
+# Generador del AECODE Startup Intelligence Cockpit (single-file HTML)
+P = []
+def add(s): P.append(s)
+
+# ============================ HEAD + STYLE OPEN ============================
+add(r'''<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
@@ -12,7 +18,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
+''')
+
+# ============================ CSS ============================
+add(r''':root{
   --bg:#0E1121;--bg2:#0D0F1F;--nav:#0C0F29;--card:#222341;--border:#3A4065;
   --txt:#EEF3F8;--muted:#A2B4CB;--lavender:#C5CFFA;
   --indigo:#4A3AC1;--violet:#7C7EDF;--violet2:#8F60EA;
@@ -58,7 +67,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .card-eyebrow{display:flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-weight:600;
   font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .card-eyebrow .tick{width:16px;height:2px;border-radius:2px;background:linear-gradient(90deg,#4A3AC1,#7C7EDF)}
-/* COMMAND BAR */
+''')
+
+add(r'''/* COMMAND BAR */
 #bar{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .35s,box-shadow .35s,border-color .35s;border-bottom:1px solid transparent}
 #bar.scrolled{background:rgba(12,15,41,.93);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-bottom:1px solid var(--border);box-shadow:0 4px 40px rgba(0,0,0,.35)}
 .bar-in{display:flex;align-items:center;gap:12px;max-width:1280px;margin:0 auto;padding:11px 22px}
@@ -80,7 +91,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .tbtn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.04em;color:var(--muted);background:rgba(34,35,65,.6);border:1px solid var(--border);padding:7px 11px;border-radius:999px;cursor:pointer;transition:.2s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
 .tbtn:hover{color:#fff;background:linear-gradient(135deg,#4A3AC1,#7C7EDF);border-color:transparent}
 .tbtn.primary{color:#fff;background:linear-gradient(135deg,#4A3AC1,#7C7EDF);border-color:transparent}
-/* HERO / NORTH STAR */
+''')
+
+add(r'''/* HERO / NORTH STAR */
 #north{padding-top:128px}
 .north-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
 .north-lead .hbadge{display:inline-flex;align-items:center;gap:9px;background:rgba(74,58,193,.16);border:1px solid rgba(124,126,223,.28);border-radius:999px;padding:6px 15px;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--lavender);margin-bottom:18px}
@@ -111,7 +124,9 @@ textarea#foco:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,126
 .nsm-tg{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--border);border-radius:7px;padding:4px 10px}
 .nsm-tg b{color:var(--lavender)}
 .nsm-insight{margin-top:14px;font-size:12px;color:var(--muted);line-height:1.55;max-width:340px}
-/* EDITABLE INPUTS */
+''')
+
+add(r'''/* EDITABLE INPUTS */
 .edit{font-family:'JetBrains Mono',monospace;background:transparent;border:none;border-bottom:1px dashed transparent;color:inherit;font-size:inherit;font-weight:inherit;padding:0 1px;cursor:text;transition:.15s;-moz-appearance:textfield;text-align:center}
 .edit::-webkit-outer-spin-button,.edit::-webkit-inner-spin-button{-webkit-appearance:none}
 .edit:hover{border-bottom-color:var(--border)}
@@ -124,7 +139,9 @@ textarea#foco:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,126
 #popover .pop-t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
 #popover .pop-x{position:absolute;top:8px;right:10px;color:var(--muted);cursor:pointer;font-size:15px;line-height:1}
 #popover .pop-x:hover{color:var(--txt)}
-/* SIMULATOR */
+''')
+
+add(r'''/* SIMULATOR */
 #simulator{background:rgba(13,15,31,.5)}
 .sim-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:18px;margin-top:30px}
 .sim-controls .presets{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap}
@@ -155,7 +172,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .sim-note{margin-top:4px;padding:11px 14px;background:rgba(74,58,193,.08);border:1px solid rgba(74,58,193,.22);border-radius:11px;font-size:12px;color:var(--muted);line-height:1.5;display:flex;gap:9px}
 .sim-note b{color:var(--lavender)}
 .sim-note-lbl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);flex:0 0 auto}
-/* KPI HEALTH GRID */
+''')
+
+add(r'''/* KPI HEALTH GRID */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:30px}
 .kpi{border-radius:15px;padding:16px;position:relative;overflow:hidden;background:rgba(34,35,65,.58);border:1px solid var(--border);transition:transform .25s,border-color .25s}
 .kpi:hover{transform:translateY(-3px);border-color:rgba(124,126,223,.4)}
@@ -170,7 +189,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .legend{margin-top:16px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:11px;color:var(--muted)}
 .legend .p{display:flex;align-items:center;gap:6px}
 .legend .sd{width:8px;height:8px;border-radius:50%}
-/* FUNNEL */
+''')
+
+add(r'''/* FUNNEL */
 #funnel-sec{background:rgba(13,15,31,.5)}
 .fn-wrap{display:flex;flex-direction:column;gap:8px;margin-top:30px}
 .fn-row{display:grid;grid-template-columns:172px 1fr 128px;align-items:center;gap:13px}
@@ -188,7 +209,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .fn-note-lbl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--risk);flex:0 0 auto}
 .fn-act{margin-top:10px;padding:11px 14px;background:rgba(74,58,193,.08);border:1px solid rgba(74,58,193,.2);border-radius:11px;font-size:12px;color:var(--muted);line-height:1.55}
 .fn-act b{color:var(--lavender)}
-/* REVENUE MIX */
+''')
+
+add(r'''/* REVENUE MIX */
 .mix-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
 .mix-h{display:flex;justify-content:space-between;align-items:baseline;margin:4px 0 9px}
 .mix-h .mt{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -202,7 +225,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .cash-warn{margin-top:16px;padding:12px 15px;background:var(--watch-bg);border:1px solid rgba(240,160,48,.22);border-radius:11px;font-size:12px;color:var(--muted);line-height:1.55}
 .cash-warn b{color:var(--watch)}
 .arrow-mid{display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--violet)}
-/* AGENDA + QUICK WINS */
+''')
+
+add(r'''/* AGENDA + QUICK WINS */
 #readiness{background:rgba(13,15,31,.5)}
 .ready-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:30px}
 .agenda{list-style:none;display:flex;flex-direction:column;gap:3px}
@@ -229,7 +254,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 .win-input:focus{border-color:var(--violet);border-style:solid}
 .win-addbtn{padding:8px 13px;border-radius:999px;background:linear-gradient(135deg,#4A3AC1,#7C7EDF);border:none;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11px;cursor:pointer;white-space:nowrap}
 .win-addbtn:hover{opacity:.85}
-/* INTERPRET GUIDE */
+''')
+
+add(r'''/* INTERPRET GUIDE */
 .guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
 .guide{padding:22px 20px}
 .guide .gn{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:var(--violet);width:34px;height:34px;border-radius:10px;background:rgba(74,58,193,.16);border:1px solid rgba(124,126,223,.22);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
@@ -244,7 +271,9 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
 .foot-links{display:flex;gap:16px}
 .foot-links a{font-size:11px;color:var(--muted);text-decoration:none}
 .foot-links a:hover{color:var(--txt)}
-/* TOUR */
+''')
+
+add(r'''/* TOUR */
 #tour-box{position:fixed;z-index:560;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);max-width:430px;width:calc(100% - 40px);background:rgba(18,20,42,.99);border:1px solid var(--violet);border-radius:16px;padding:20px 22px;box-shadow:0 18px 64px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
 #tour-box.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 #tour-box .tt{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;margin-bottom:8px}
@@ -277,7 +306,9 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
   .verdict span{display:none}
 }
 @media(max-width:480px){.kpi-grid,.out-grid{grid-template-columns:1fr}}
-</style>
+''')
+
+add(r'''</style>
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -286,7 +317,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
 <div id="popover"><span class="pop-x" onclick="hidePop()">&times;</span><div class="pop-t" id="pop-t"></div><div id="pop-d"></div></div>
 <div id="toast"></div>
 <div id="tour-box"><div class="tt" id="tour-t"></div><div class="td" id="tour-d"></div><div class="tnav"><span class="tstep" id="tour-step"></span><button class="tbtn-s" id="tour-prev" onclick="tourPrev()">Atrás</button><button class="tbtn-s primary" id="tour-next" onclick="tourNext()">Siguiente</button></div></div>
-<div id="bar">
+''')
+
+# ============================ COMMAND BAR ============================
+add(r'''<div id="bar">
   <div class="bar-in">
     <a href="#north" class="bar-logo">
       <img src="aecodito.png" class="aecodito" alt="Aecodito">
@@ -311,7 +345,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     </div>
   </div>
 </div>
-<section id="north" class="section">
+''')
+
+# ============================ NORTH STAR ============================
+add(r'''<section id="north" class="section">
   <div class="wrap">
     <div class="north-grid">
       <div class="north-lead reveal">
@@ -347,7 +384,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     </div>
   </div>
 </section>
-<section id="simulator" class="section">
+''')
+
+# ============================ SIMULATOR ============================
+add(r'''<section id="simulator" class="section">
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">El Motor &middot; Simulador de Escenarios</div>
@@ -404,7 +444,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     </div>
   </div>
 </section>
-<section id="kpis" class="section">
+''')
+
+# ============================ KPI / FUNDABILIDAD ============================
+add(r'''<section id="kpis" class="section">
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">Salud &middot; Fundabilidad</div>
@@ -420,7 +463,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     </div>
   </div>
 </section>
-<section id="funnel-sec" class="section">
+''')
+
+# ============================ FUNNEL ============================
+add(r'''<section id="funnel-sec" class="section">
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">Cadena de Valor</div>
@@ -432,7 +478,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     <div class="fn-act" id="fn-act"></div>
   </div>
 </section>
-<section id="revenue" class="section">
+''')
+
+# ============================ REVENUE MIX ============================
+add(r'''<section id="revenue" class="section">
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">La Apuesta &middot; Migración del Modelo</div>
@@ -455,7 +504,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     </div>
   </div>
 </section>
-<section id="readiness" class="section">
+''')
+
+# ============================ READINESS AGENDA + QUICK WINS ============================
+add(r'''<section id="readiness" class="section">
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">Startup Readiness</div>
@@ -477,7 +529,10 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     </div>
   </div>
 </section>
-<section id="interpret" class="section">
+''')
+
+# ============================ INTERPRET GUIDE ============================
+add(r'''<section id="interpret" class="section">
   <div class="wrap">
     <div class="reveal">
       <div class="eyebrow">Cómo Interpretar este Cockpit</div>
@@ -493,14 +548,20 @@ footer{position:relative;z-index:5;border-top:1px solid var(--border);padding:26
     </div>
   </div>
 </section>
-<footer>
+''')
+
+# ============================ FOOTER ============================
+add(r'''<footer>
   <div class="foot-in">
     <div class="foot-brand"><span class="grad">AECODE</span> &middot; Startup Intelligence Cockpit</div>
     <div class="foot-links"><a href="#north">Norte</a><a href="#simulator">Simulador</a><a href="#kpis">Fundabilidad</a><a href="#readiness">Agenda</a></div>
     <div class="foot-copy">v2.0 &middot; 2026 &middot; data editable &amp; local</div>
   </div>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+''')
+
+# ============================ JS ============================
+add(r'''<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <script>
 "use strict";
 /* ===== SEED ===== */
@@ -575,7 +636,9 @@ var PRESETS={
 };
 var COL={good:"var(--good)",watch:"var(--watch)",risk:"var(--risk)"};
 var HEX={good:"#47CF78",watch:"#F0A030",risk:"#F2617A"};
-/* ===== STATE / PERSISTENCE ===== */
+''')
+
+add(r'''/* ===== STATE / PERSISTENCE ===== */
 var KEY="aecode_cockpit_v2", S, firstPaint=true;
 function num(x,f){var n=parseFloat(x);return isNaN(n)?(f===undefined?0:f):n;}
 function clone(o){return JSON.parse(JSON.stringify(o));}
@@ -612,7 +675,9 @@ function compute(){
   else{v="Aún no financiable";vc="risk";}
   return {nsm:nsm,pct:pct,nsmSt:nsmStatus(pct),risks:risks,goods:goods,watches:watches,v:v,vc:vc};
 }
-/* ===== RENDER: VERDICT + NORTH STAR ===== */
+''')
+
+add(r'''/* ===== RENDER: VERDICT + NORTH STAR ===== */
 function renderVerdict(C){
   var el=document.getElementById("verdict");
   el.innerHTML='<span class="vd" style="background:'+COL[C.vc]+'"></span><b style="color:'+COL[C.vc]+'">'+C.v+'</b><span>'+C.goods+'✓ · '+C.watches+'~ · '+C.risks+'✕</span>';
@@ -649,7 +714,9 @@ function renderKPI(){
       '<div class="kpi-bar"><i data-w="'+w+'" style="background:'+COL[st]+'"></i></div></div>';
   }).join("");
 }
-/* ===== RENDER: FUNNEL ===== */
+''')
+
+add(r'''/* ===== RENDER: FUNNEL ===== */
 function renderFunnel(){
   var steps=[],neck=null;
   for(var i=1;i<S.funnel.length;i++){
@@ -692,7 +759,9 @@ function renderRevenue(){
   var micro=S.mixNow.find(function(x){return x.k==="Microlearning";});
   document.getElementById("mrr-real").textContent=money(micro?micro.v:0);
 }
-/* ===== RENDER: AGENDA + WINS ===== */
+''')
+
+add(r'''/* ===== RENDER: AGENDA + WINS ===== */
 function renderAgenda(){
   var done=S.agenda.filter(function(a){return a.d;}).length;
   var pct=Math.round(done/S.agenda.length*100);
@@ -716,7 +785,9 @@ function bindWins(){
 function bindAgenda(){
   document.querySelectorAll('[data-ag]').forEach(function(el){el.onclick=function(){var i=+el.dataset.ag;S.agenda[i].d=!S.agenda[i].d;save();renderAgenda();bindAgenda();};});
 }
-/* ===== EDIT BINDINGS ===== */
+''')
+
+add(r'''/* ===== EDIT BINDINGS ===== */
 function bindEdits(){
   document.querySelectorAll('.edit').forEach(function(inp){
     inp.onchange=function(){
@@ -745,7 +816,9 @@ function animateBars(){
     document.querySelectorAll('.kpi-bar i,.fn-fill,.seg,.out-bar i').forEach(function(b){if(b.dataset.w!==undefined)b.style.width=b.dataset.w+"%";});
   });
 }
-/* ===== SIMULATOR ===== */
+''')
+
+add(r'''/* ===== SIMULATOR ===== */
 var SIM={ids:["evid","verif","mau","conv","price"]};
 function simGet(){return {evid:+document.getElementById("s-evid").value,verif:+document.getElementById("s-verif").value,mau:+document.getElementById("s-mau").value,conv:+document.getElementById("s-conv").value,price:+document.getElementById("s-price").value};}
 function simCalc(p){
@@ -809,7 +882,9 @@ function initSim(){
   document.querySelectorAll(".preset").forEach(function(b){b.onclick=function(){applyPreset(b.dataset.preset);};});
   runSim();
 }
-/* ===== INFO POPOVER ===== */
+''')
+
+add(r'''/* ===== INFO POPOVER ===== */
 var popEl,popT,popD;
 function bindInfo(){
   document.querySelectorAll('.info[data-info]').forEach(function(el){
@@ -853,7 +928,9 @@ function showTourStep(){
 function tourNext(){if(tourI>=TOUR.length-1){endTour();return;}tourI++;showTourStep();}
 function tourPrev(){if(tourI>0){tourI--;showTourStep();}}
 function endTour(){document.querySelectorAll(".tour-hl").forEach(function(e){e.classList.remove("tour-hl");});document.getElementById("tour-box").classList.remove("show");}
-/* ===== TOOLS: EXPORT/IMPORT/RESET ===== */
+''')
+
+add(r'''/* ===== TOOLS: EXPORT/IMPORT/RESET ===== */
 function doExport(){
   var b=new Blob([JSON.stringify(S,null,2)],{type:"application/json"});
   var u=URL.createObjectURL(b),a=document.createElement("a");
@@ -918,3 +995,10 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 </script>
 </body>
 </html>
+''')
+
+# ============================ WRITE FILE ============================
+html = "".join(P)
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html)
+print("OK index.html written:", len(html), "chars (", round(len(html)/1024), "KB )")
