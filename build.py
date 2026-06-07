@@ -1,21 +1,167 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AECODE — Startup Intelligence Report</title>
-<meta name="description" content="Reporte de inteligencia AECODE: el Learning Operating System para la fuerza laboral AEC en espanol. Modelo hibrido, North Star, metricas y unit economics — public-safe.">
-<meta name="theme-color" content="#0B0D1A">
-<link rel="icon" href="aecode-logo.svg" type="image/svg+xml">
-<meta property="og:type" content="website">
-<meta property="og:title" content="AECODE — Startup Intelligence Report">
-<meta property="og:description" content="Reporte de inteligencia AECODE: el Learning Operating System para la fuerza laboral AEC en espanol. Modelo hibrido, North Star, metricas y unit economics — public-safe.">
-<meta property="og:image" content="aecodito.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<style>
+# -*- coding: utf-8 -*-
+"""
+AECODE — Startup Intelligence Report
+Generador single-file (sin build step) del sitio publico de AECODE.
+
+Fuente de verdad mantenible: editar los datos/copys aqui y re-ejecutar
+    python build.py
+para regenerar index.html. Reemplaza el viejo export estatico de Next.js.
+
+Craft aplicado (skills elite-frontend):
+  - Tokens OKLCH driven by --hue (marca AECODE indigo/violeta/verde) + fallbacks hex
+  - Tipografia fluida clamp(), Space Grotesk + Plus Jakarta Sans + JetBrains Mono (tabular-nums)
+  - Motion engine: curvas custom <300ms, scale-on-press, reveals transform/opacity-only
+  - Glass-depth en superficies flotantes, interface-quality (focus rings, teclado, aria)
+  - Command menu (Ctrl/Cmd K), AECODITO assistant, scroll progress, count-up
+  - prefers-reduced-motion respetado, responsive real
+"""
+
+# =============================================================================
+#  DATA  (contenido real extraido del reporte AECODE — public-safe)
+# =============================================================================
+
+NAV = [
+    ("norte", "North Star"),
+    ("problema", "Problema"),
+    ("producto", "Producto"),
+    ("modelo", "Modelo"),
+    ("mercado", "Mercado"),
+    ("metricas", "Metricas"),
+    ("economics", "Unit economics"),
+    ("gtm", "GTM"),
+    ("equipo", "Equipo"),
+    ("acciones", "Roadmap"),
+]
+
+HERO_STATS = [
+    ("0.17", "North Star · skills verificadas / MAU", "meta beta 0.40", 0.17, "", "", 2, False),
+    ("$5,150", "MRR total (modelo hibrido)", "meta 12 meses $30k", 5150, "$", "", 0, True),
+    ("3.1x", "LTV / CAC", "objetivo > 3x", 3.1, "", "x", 1, False),
+    ("420", "Usuarios activos (MAU)", "meta beta 750", 420, "", "", 0, False),
+]
+
+PRINCIPIOS = [
+    ("Aprendizaje por nivel", "Aprendizaje segun nivel, rol y objetivo profesional — no un catalogo plano."),
+    ("Microlearning", "Capsulas cortas para avanzar sin depender de programas largos."),
+    ("Practica con caso real", "Practica con casos reales AEC, no solo teoria."),
+    ("Certificacion por evidencia", "Certificacion basada en evidencia entregable, no solo asistencia."),
+    ("IA como coach", "IA como recomendador, coach y apoyo de evaluacion — no decoracion."),
+]
+
+# Modelo hibrido — 4 motores (MRR real / supuesto separado)
+ENGINES = [
+    {
+        "name": "AECODE Live Training",
+        "tag": "Motor de caja, confianza y contenido semilla",
+        "mrr": "$3,090", "mrr_num": 3090,
+        "desc": "Cursos en vivo, cohortes, diplomados, workshops y comunidad guiada para validar demanda, generar casos reales y producir contenido semilla.",
+        "kpis": [("Live revenue acumulado", "PEN 140k", "2 anos"), ("Meta MRR", "$7.5k", "escala")],
+        "accent": "indigo", "share_now": 60, "share_goal": 25,
+    },
+    {
+        "name": "AECODE Microlearning Skill OS",
+        "tag": "Motor de recurrencia, personalizacion y certificacion",
+        "mrr": "$1,288", "mrr_num": 1288,
+        "desc": "Rutas adaptativas, capsulas cortas, practica aplicada, evidencias, rubricas, creditos, IA y Skill Passport.",
+        "kpis": [("Consumo de creditos", "1,120/mes", "supuesto"), ("Meta MRR", "$18k", "escala")],
+        "accent": "violet", "share_now": 25, "share_goal": 60,
+    },
+    {
+        "name": "AECODE Enterprise",
+        "tag": "Pilotos B2B y dashboards de talento",
+        "mrr": "$515", "mrr_num": 515,
+        "desc": "Licencias por equipo, diagnosticos de brecha, reportes de talento y upskilling medible.",
+        "kpis": [("Senal", "Seats B2B", "pipeline"), ("Foco", "Piloto 30 dias", "por rol")],
+        "accent": "green", "share_now": 10, "share_goal": 10,
+    },
+    {
+        "name": "AECODE Credentials",
+        "tag": "Certificacion y validacion por partners",
+        "mrr": "$257", "mrr_num": 257,
+        "desc": "Certificaciones, evaluaciones avanzadas, partners y eventos especializados.",
+        "kpis": [("Senal", "Credenciales", "emitidas"), ("Foco", "Attach rate", "credential")],
+        "accent": "violet", "share_now": 5, "share_goal": 5,
+    },
+]
+
+# Metricas con rango saludable + decision (lenguaje ejecutivo)
+METRICS = [
+    ("Skills certificadas / MAU", "North Star Metric", "Cuantas habilidades reales certifica cada usuario activo en el mes. Conecta aprendizaje, practica, evidencia, certificacion y retencion.", "0.2–0.4 beta · >0.8 escala", "Mejorar ruta, practica y feedback antes de escalar adquisicion.", True),
+    ("Inician una ruta", "Activacion", "Personas que pasan de interes general a una ruta concreta por rol o meta.", "50–70% beta", "Diagnostico + primera ruta recomendada en < 5 min.", False),
+    ("Practican con caso real", "Aplicacion", "Usuarios que pasan de ver contenido a aplicar lo aprendido. Es el puente entre curso y skill verificable.", "45–65%", "Reducir friccion de la primera practica con casos cercanos al trabajo.", False),
+    ("Suben evidencia", "Evidencia", "Entregan archivo, modelo, reporte, script o dashboard evaluable. Diferencia AECODE de un catalogo de cursos.", "35–60% beta · >60% fuerte", "Dividir la evidencia en pasos pequenos y mejorar ejemplos.", False),
+    ("Skills aprobadas", "Calidad", "Evidencias que cumplen rubrica y se vuelven progreso certificable. Prueba calidad, no solo actividad.", "55–75% beta", "Ajustar rubricas, feedback y dificultad por nivel.", False),
+    ("Retencion mensual", "Lifecycle", "Usuarios que vuelven a aprender, practicar o certificar al mes siguiente. El negocio existe si el progreso es continuo.", "30–45% beta · >50% fuerte", "Recomendaciones, recordatorios y rutas cortas de siguiente skill.", False),
+    ("Conversion a pago", "Monetizacion", "Usuarios que pasan de free a pagar por curso, suscripcion, creditos o certificacion.", "3–8% B2C · >10% cohortes", "Vender outcome: certificado, feedback y ruta verificable.", False),
+    ("% ingresos escalables", "Escalabilidad", "Reduce dependencia de horas de instructor migrando live a contenido reutilizable.", ">30–50% en MVP", "Convertir cada live en capsulas, skills y creditos.", False),
+]
+
+# Arbol de metricas: norte -> producto/growth/revenue (actual -> meta)
+TREE = [
+    ("Adquisicion", "growth", "Comunidad y contenido producen leads que entran a diagnostico.", [
+        ("Qualified leads / mes", "1,200", "target"), ("CAC blended", "<$30", "target"),
+    ]),
+    ("Activacion", "indigo", "El usuario entiende su punto de partida y arranca una primera skill.", [
+        ("Path generated / mes", "403 → 900", "actual → meta"), ("Time to first skill", "<7d → <24h", "objetivo"),
+    ]),
+    ("Evidencia y calidad", "violet", "La ruta solo vale si produce entregables validables.", [
+        ("Rubric pass score", "78 → >82", "/100"), ("Verified skill rate", "sube", "calidad"),
+    ]),
+    ("Lifecycle", "indigo", "El usuario vuelve porque ve progreso profesional acumulable.", [
+        ("Skills / user / month", "0.17 → 0.40", "NSM"), ("Next skill start", "activar", "retencion"),
+    ]),
+    ("Monetizacion", "green", "La evidencia abre pago por suscripcion, creditos, certificacion y B2B.", [
+        ("Total MRR", "$5,150 → $30k", "hibrido"), ("LTV / CAC", "3.1x → >3x", "filtro escala"),
+    ]),
+    ("Ops / IA", "violet", "El live crea confianza; la plataforma la convierte en activos reutilizables.", [
+        ("Support cost / user", "$2.8 → <$1.5", "eficiencia"), ("AI extraction accuracy", ">70–85%", "human-in-loop"),
+    ]),
+]
+
+# Funnel maestro: visita -> skill verificada -> pago
+FUNNEL = [
+    ("Visitante", "1000", "100%", "Trafico con intencion, no academia generica."),
+    ("Registro", "20–28%", "activacion", "CTA = diagnosticar skill gap, no comprar curso."),
+    ("Skill start", "ruta", "primer valor", "Mostrar una skill pequena y accionable hoy."),
+    ("Evidencia", "entregable", "calidad", "Ejemplo, rubrica y entregable claro."),
+    ("Skill verified", "validada", "progreso", "Feedback rapido = sensacion de progreso."),
+    ("Pago", "79 subs", "revenue", "Pago ligado a certificacion o desbloqueo de ruta."),
+]
+
+ECONOMICS = [
+    ("LTV / CAC", "3.1x", ">3x", "Cada cliente deja mas valor del que cuesta adquirirlo."),
+    ("CAC payback", "objetivo", "<6 meses", "Velocidad de recuperacion de la inversion comercial."),
+    ("Margen bruto hibrido", "objetivo", ">60%", "Sube margen digital, baja dependencia de horas sincronas."),
+    ("Runway", "planificar", "12–18 meses", "Caja para ejecutar hitos antes de levantar."),
+]
+
+ACCIONES = [
+    "Definir la primera ruta wedge con mayor dolor, evidencia y disposicion de pago.",
+    "Separar P&L de live, plataforma e hibrido para no confundir caja con escalabilidad.",
+    "Medir semanal: registro, diagnostico, skill start, evidencia, feedback, verificacion y pago.",
+    "Convertir cada curso live en capsulas, skills, rubricas y evidencias reutilizables.",
+    "Lanzar piloto B2B de 30 dias con brecha por rol, 3 skills y reporte de resultados.",
+    "Versionar el Skill Graph AEC como activo central de producto.",
+    "Crear data room con metricas reales, supuestos separados y benchmarks citados.",
+    "Calcular CAC, LTV, margen bruto, churn, payback, burn y runway antes de levantar.",
+]
+
+# AECODITO quick-facts (asistente)
+FACTS = [
+    ("Que es AECODE", "Plataforma educativa inteligente para profesionales AEC: convierte cada clase en una skill practicada, evidenciada, validada y acumulable."),
+    ("North Star", "Skills verificadas con evidencia / usuarios activos mensuales. Actual 0.17 (72/420), meta beta 0.40 (300/750)."),
+    ("Modelo", "Hibrido: Live Training (caja) + Microlearning Skill OS (recurrencia) + Enterprise + Credentials. MRR total $5,150."),
+    ("Wedge", "Profesional AEC que necesita empleabilidad digital; segundo mercado: empresa AEC con brechas BIM, IA, VDC o productividad."),
+    ("Por que ahora", "La IA acelera la obsolescencia tecnica y permite personalizar a escala. BIM, datos y automatizacion ya son requisitos operativos."),
+    ("Por que gana", "Tesis clara, mercado con brecha creciente, comunidad vertical y una metrica que no se puede maquillar: skills verificadas con evidencia real."),
+]
+
+
+# =============================================================================
+#  CSS  (raw string — sin f-string para no escapar llaves)
+# =============================================================================
+
+CSS = r"""
 *,*::before,*::after{box-sizing:border-box}
 :root{
   color-scheme:dark;
@@ -236,308 +382,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-betwee
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
-</style>
-</head>
-<body>
-<div class="prog"></div>
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="grain" aria-hidden="true"></div>
+"""
 
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="#top"><img src="aecode-logo.svg" alt="AECODE"><span>AECODE<b>.</b></span></a>
-    <nav class="navlinks" aria-label="Secciones"><a href="#norte">North Star</a><a href="#problema">Problema</a><a href="#producto">Producto</a><a href="#modelo">Modelo</a><a href="#mercado">Mercado</a><a href="#metricas">Metricas</a><a href="#economics">Unit economics</a><a href="#gtm">GTM</a><a href="#equipo">Equipo</a><a href="#acciones">Roadmap</a></nav>
-    <div class="nav-actions">
-      <button class="kbd" data-cmd aria-label="Abrir buscador de comandos"><kbd>⌘</kbd><kbd>K</kbd> buscar</button>
-      <a class="btn primary" href="#acciones">Data room</a>
-    </div>
-  </div>
-</header>
 
-<main id="top">
+# =============================================================================
+#  JS
+# =============================================================================
 
-<!-- HERO -->
-<section class="hero" aria-label="Portada">
-  <div class="wrap">
-    <img class="orb reveal" src="aecodito.png" alt="AECODITO, mascota IA de AECODE" width="150" height="150">
-    <div class="kicker reveal" style="justify-content:center">Learning Operating System · Sector AEC</div>
-    <h1 class="reveal">El sistema que convierte aprendizaje AEC en <span class="grad">skills verificadas</span>.</h1>
-    <p class="sub reveal">Plataforma de aprendizaje AEC inteligente, practica y certificable. Cada curso se vuelve ruta, practica, evidencia, feedback y certificacion — progreso profesional medible, no horas de clase.</p>
-    <div class="chips reveal">
-      <span class="chip"><b>Modelo</b> Live Training + Microlearning</span>
-      <span class="chip"><b>Wedge</b> Profesionales AEC digitales</span>
-      <span class="chip"><b>NSM</b> Skills verificadas / MAU</span>
-    </div>
-    <div class="cta reveal">
-      <a class="btn primary" href="#producto">Ver el producto</a>
-      <a class="btn ghost" href="#metricas">Explorar metricas</a>
-    </div>
-    <div class="stats"><div class="stat reveal">
-      <div class="big mono" data-count="0.17" data-dec="2" data-pre="" data-suf="" data-sep="0">0</div>
-      <div class="lab">North Star · skills verificadas / MAU</div><div class="meta">meta beta 0.40</div></div><div class="stat reveal">
-      <div class="big mono" data-count="5150" data-dec="0" data-pre="$" data-suf="" data-sep="1">$0</div>
-      <div class="lab">MRR total (modelo hibrido)</div><div class="meta">meta 12 meses $30k</div></div><div class="stat reveal">
-      <div class="big mono" data-count="3.1" data-dec="1" data-pre="" data-suf="x" data-sep="0">0x</div>
-      <div class="lab">LTV / CAC</div><div class="meta">objetivo &gt; 3x</div></div><div class="stat reveal">
-      <div class="big mono" data-count="420" data-dec="0" data-pre="" data-suf="" data-sep="0">0</div>
-      <div class="lab">Usuarios activos (MAU)</div><div class="meta">meta beta 750</div></div></div>
-    <p class="lema reveal">La Ingenieria &amp; Construccion Moderna, <b>te la contamos nosotros.</b></p>
-  </div>
-</section>
-
-<!-- NORTH STAR -->
-<section id="norte" aria-label="North Star">
-  <div class="wrap">
-    <div class="kicker reveal">North Star Metric</div>
-    <h2 class="h-sec reveal">Una metrica que no se puede maquillar.</h2>
-    <div class="ns" style="margin-top:2rem">
-      <div class="reveal">
-        <div class="formula">skills_verified_with_evidence <span style="color:var(--violet)">/</span> monthly_active_users</div>
-        <div class="nspair">
-          <div class="nsbox"><div class="v muted mono">0.17</div><small>Actual · 72 / 420</small></div>
-          <div class="nsbox"><div class="v hot mono">0.40</div><small>Meta beta · 300 / 750</small></div>
-          <div class="nsbox"><div class="v mono">&gt;0.8</div><small>En escala</small></div>
-        </div>
-      </div>
-      <div class="card reveal">
-        <p class="yn y"><b>Cuenta cuando:</b> el usuario inicia una skill, completa una practica, sube un entregable, recibe validacion y la skill queda en su Skill Passport.</p>
-        <p class="yn n"><b>No cuenta:</b> solo ver una clase, asistir a un live, descargar material o recibir un certificado sin evidencia.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROBLEMA / SOLUCION -->
-<section id="problema" aria-label="Problema y solucion">
-  <div class="wrap">
-    <div class="kicker reveal">Problema · Solucion</div>
-    <h2 class="h-sec reveal">El problema no es que falten cursos. Es que no se vuelven progreso verificable.</h2>
-    <div class="grid g2" style="margin-top:2rem">
-      <article class="card reveal"><span class="tag assume">Dolor transversal</span>
-        <h3 style="font-size:var(--step-1);margin-top:.8rem">Aprendizaje sin evidencia</h3>
-        <p style="color:var(--fg-muted);margin-top:.6rem">La pregunta no es si faltan cursos; es quien ordena, valida y mide talento AEC. El aprendizaje no siempre se convierte en progreso verificable.</p></article>
-      <article class="card reveal"><span class="tag green">Loop central</span>
-        <h3 style="font-size:var(--step-1);margin-top:.8rem">Aprende → practica → evidencia → valida → acumula</h3>
-        <p style="color:var(--fg-muted);margin-top:.6rem">Idea madre: cada curso se convierte en ruta, practica, evidencia, feedback y certificacion. Unidad de valor: <b style="color:var(--fg)">skill verificada con evidencia</b>, no hora de clase.</p></article>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCTO -->
-<section id="producto" aria-label="Producto">
-  <div class="wrap">
-    <div class="kicker reveal">Producto</div>
-    <h2 class="h-sec reveal">AECODE diagnostica, recomienda, divide en capsulas, valida evidencias y acumula skills.</h2>
-    <p class="lead reveal">El progreso conecta lo nuevo con lo que el usuario ya sabe y recomienda el siguiente skill. IA como recomendador, coach y apoyo de evaluacion.</p>
-    <div class="grid g3" style="margin-top:2.2rem"><article class="card reveal"><span class="tag">01</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Aprendizaje por nivel</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.4rem">Aprendizaje segun nivel, rol y objetivo profesional — no un catalogo plano.</p></article><article class="card reveal"><span class="tag">02</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Microlearning</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.4rem">Capsulas cortas para avanzar sin depender de programas largos.</p></article><article class="card reveal"><span class="tag">03</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Practica con caso real</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.4rem">Practica con casos reales AEC, no solo teoria.</p></article><article class="card reveal"><span class="tag">04</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Certificacion por evidencia</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.4rem">Certificacion basada en evidencia entregable, no solo asistencia.</p></article><article class="card reveal"><span class="tag">05</span><h3 style="font-size:var(--step-0);margin-top:.7rem">IA como coach</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.4rem">IA como recomendador, coach y apoyo de evaluacion — no decoracion.</p></article></div>
-  </div>
-</section>
-
-<!-- MODELO -->
-<section id="modelo" aria-label="Modelo de negocio">
-  <div class="wrap">
-    <div class="kicker reveal">Modelo hibrido</div>
-    <h2 class="h-sec reveal">Cuatro motores. Caja hoy, recurrencia manana.</h2>
-    <p class="lead reveal">Actual: 60% Live Training y 25% Microlearning. Objetivo: migrar a 60% Microlearning Skill OS y 25% Live Training — de horas sincronas a activos digitales reutilizables.</p>
-    <div class="grid g2" style="margin-top:2.2rem"><article class="card engine indigo reveal">
-      <div class="top"><h3>AECODE Live Training</h3><div class="mrr mono">$3,090<span style="font-size:.5em;color:var(--fg-muted)"> /mes</span></div></div>
-      <span class="tag">Motor de caja, confianza y contenido semilla</span>
-      <p style="color:var(--fg-muted);font-size:.9rem">Cursos en vivo, cohortes, diplomados, workshops y comunidad guiada para validar demanda, generar casos reales y producir contenido semilla.</p>
-      <div style="margin-top:.3rem"><div class="kv"><small>Live revenue acumulado</small><b>PEN 140k <span class="tag green">2 anos</span></b></div><div class="kv"><small>Meta MRR</small><b>$7.5k <span class="tag green">escala</span></b></div></div>
-      <div class="barrow"><span>mix actual</span><div class="bar"><i style="width:60%"></i></div><span class="v">60%</span></div>
-      <div class="barrow"><span>mix objetivo</span><div class="bar"><i style="width:25%;background:linear-gradient(90deg,var(--green),var(--violet))"></i></div><span class="v">25%</span></div>
-    </article><article class="card engine violet reveal">
-      <div class="top"><h3>AECODE Microlearning Skill OS</h3><div class="mrr mono">$1,288<span style="font-size:.5em;color:var(--fg-muted)"> /mes</span></div></div>
-      <span class="tag">Motor de recurrencia, personalizacion y certificacion</span>
-      <p style="color:var(--fg-muted);font-size:.9rem">Rutas adaptativas, capsulas cortas, practica aplicada, evidencias, rubricas, creditos, IA y Skill Passport.</p>
-      <div style="margin-top:.3rem"><div class="kv"><small>Consumo de creditos</small><b>1,120/mes <span class="tag assume">supuesto</span></b></div><div class="kv"><small>Meta MRR</small><b>$18k <span class="tag green">escala</span></b></div></div>
-      <div class="barrow"><span>mix actual</span><div class="bar"><i style="width:25%"></i></div><span class="v">25%</span></div>
-      <div class="barrow"><span>mix objetivo</span><div class="bar"><i style="width:60%;background:linear-gradient(90deg,var(--green),var(--violet))"></i></div><span class="v">60%</span></div>
-    </article><article class="card engine green reveal">
-      <div class="top"><h3>AECODE Enterprise</h3><div class="mrr mono">$515<span style="font-size:.5em;color:var(--fg-muted)"> /mes</span></div></div>
-      <span class="tag">Pilotos B2B y dashboards de talento</span>
-      <p style="color:var(--fg-muted);font-size:.9rem">Licencias por equipo, diagnosticos de brecha, reportes de talento y upskilling medible.</p>
-      <div style="margin-top:.3rem"><div class="kv"><small>Senal</small><b>Seats B2B <span class="tag assume">pipeline</span></b></div><div class="kv"><small>Foco</small><b>Piloto 30 dias <span class="tag green">por rol</span></b></div></div>
-      <div class="barrow"><span>mix actual</span><div class="bar"><i style="width:10%"></i></div><span class="v">10%</span></div>
-      <div class="barrow"><span>mix objetivo</span><div class="bar"><i style="width:10%;background:linear-gradient(90deg,var(--green),var(--violet))"></i></div><span class="v">10%</span></div>
-    </article><article class="card engine violet reveal">
-      <div class="top"><h3>AECODE Credentials</h3><div class="mrr mono">$257<span style="font-size:.5em;color:var(--fg-muted)"> /mes</span></div></div>
-      <span class="tag">Certificacion y validacion por partners</span>
-      <p style="color:var(--fg-muted);font-size:.9rem">Certificaciones, evaluaciones avanzadas, partners y eventos especializados.</p>
-      <div style="margin-top:.3rem"><div class="kv"><small>Senal</small><b>Credenciales <span class="tag green">emitidas</span></b></div><div class="kv"><small>Foco</small><b>Attach rate <span class="tag green">credential</span></b></div></div>
-      <div class="barrow"><span>mix actual</span><div class="bar"><i style="width:5%"></i></div><span class="v">5%</span></div>
-      <div class="barrow"><span>mix objetivo</span><div class="bar"><i style="width:5%;background:linear-gradient(90deg,var(--green),var(--violet))"></i></div><span class="v">5%</span></div>
-    </article></div>
-    <div class="card reveal" style="margin-top:1.4rem">
-      <h3 style="font-size:var(--step-1)">Logica de migracion</h3>
-      <div class="grid g2" style="margin-top:1rem">
-        <p style="color:var(--fg-muted);font-size:.9rem">Cada curso live se vuelve capsulas, practicas, rubricas y evidencias reutilizables. Cada usuario live recibe una ruta Microlearning y creditos iniciales para validar su primera skill.</p>
-        <p style="color:var(--fg-muted);font-size:.9rem">Cada evidencia validada alimenta el Skill Passport y genera datos para recomendaciones de IA. El objetivo: migrar de 60% Live a 60% Microlearning Skill OS.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MERCADO -->
-<section id="mercado" aria-label="Mercado y ventaja">
-  <div class="wrap">
-    <div class="kicker reveal">Mercado · ICP · Moat</div>
-    <h2 class="h-sec reveal">AEC LatAm primero, con un moat que no es el contenido.</h2>
-    <div class="grid g3" style="margin-top:2rem">
-      <article class="card reveal"><span class="tag">ICP</span><h3 style="font-size:var(--step-0);margin-top:.7rem">A quien servimos</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.5rem">B2C: profesionales AEC que buscan empleabilidad digital. B2B: empresas con brechas BIM, IA, VDC, datos o productividad que necesitan upskilling medible.</p></article>
-      <article class="card reveal"><span class="tag green">Moat</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Ventaja competitiva</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.5rem">El moat es la red entre skill, evidencia, rol, feedback y demanda de mercado — no el contenido aislado. Verticalidad y data moat.</p></article>
-      <article class="card reveal"><span class="tag assume">vs. mercado</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Diferenciacion</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.5rem">Udemy organiza cursos. YouTube distribuye tutoriales. AECODE convierte aprendizaje AEC en skills verificables y datos de talento.</p></article>
-    </div>
-  </div>
-</section>
-
-<!-- METRICAS -->
-<section id="metricas" aria-label="Metricas">
-  <div class="wrap">
-    <div class="kicker reveal">Como medimos el progreso</div>
-    <h2 class="h-sec reveal">Metricas en orden de prioridad, en lenguaje ejecutivo.</h2>
-    <p class="lead reveal">La prioridad no es medir todo. Es medir si el usuario aprende, practica, sube evidencia, certifica una skill, vuelve y paga por seguir avanzando.</p>
-    <div class="grid g2" style="margin-top:2.2rem"><article class="card metric reveal">
-      <div class="hd"><h3>Skills certificadas / MAU <span class="tag green">NSM</span></h3><span class="tag assume">North Star Metric</span></div>
-      <p class="why">Cuantas habilidades reales certifica cada usuario activo en el mes. Conecta aprendizaje, practica, evidencia, certificacion y retencion.</p>
-      <div class="range">Rango sano: 0.2–0.4 beta · &gt;0.8 escala</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Mejorar ruta, practica y feedback antes de escalar adquisicion.</div></article><article class="card metric reveal">
-      <div class="hd"><h3>Inician una ruta</h3><span class="tag assume">Activacion</span></div>
-      <p class="why">Personas que pasan de interes general a una ruta concreta por rol o meta.</p>
-      <div class="range">Rango sano: 50–70% beta</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Diagnostico + primera ruta recomendada en &lt; 5 min.</div></article><article class="card metric reveal">
-      <div class="hd"><h3>Practican con caso real</h3><span class="tag assume">Aplicacion</span></div>
-      <p class="why">Usuarios que pasan de ver contenido a aplicar lo aprendido. Es el puente entre curso y skill verificable.</p>
-      <div class="range">Rango sano: 45–65%</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Reducir friccion de la primera practica con casos cercanos al trabajo.</div></article><article class="card metric reveal">
-      <div class="hd"><h3>Suben evidencia</h3><span class="tag assume">Evidencia</span></div>
-      <p class="why">Entregan archivo, modelo, reporte, script o dashboard evaluable. Diferencia AECODE de un catalogo de cursos.</p>
-      <div class="range">Rango sano: 35–60% beta · &gt;60% fuerte</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Dividir la evidencia en pasos pequenos y mejorar ejemplos.</div></article><article class="card metric reveal">
-      <div class="hd"><h3>Skills aprobadas</h3><span class="tag assume">Calidad</span></div>
-      <p class="why">Evidencias que cumplen rubrica y se vuelven progreso certificable. Prueba calidad, no solo actividad.</p>
-      <div class="range">Rango sano: 55–75% beta</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Ajustar rubricas, feedback y dificultad por nivel.</div></article><article class="card metric reveal">
-      <div class="hd"><h3>Retencion mensual</h3><span class="tag assume">Lifecycle</span></div>
-      <p class="why">Usuarios que vuelven a aprender, practicar o certificar al mes siguiente. El negocio existe si el progreso es continuo.</p>
-      <div class="range">Rango sano: 30–45% beta · &gt;50% fuerte</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Recomendaciones, recordatorios y rutas cortas de siguiente skill.</div></article><article class="card metric reveal">
-      <div class="hd"><h3>Conversion a pago</h3><span class="tag assume">Monetizacion</span></div>
-      <p class="why">Usuarios que pasan de free a pagar por curso, suscripcion, creditos o certificacion.</p>
-      <div class="range">Rango sano: 3–8% B2C · &gt;10% cohortes</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Vender outcome: certificado, feedback y ruta verificable.</div></article><article class="card metric reveal">
-      <div class="hd"><h3>% ingresos escalables</h3><span class="tag assume">Escalabilidad</span></div>
-      <p class="why">Reduce dependencia de horas de instructor migrando live a contenido reutilizable.</p>
-      <div class="range">Rango sano: &gt;30–50% en MVP</div>
-      <div class="dec"><b>Decision &rsaquo;</b> Convertir cada live en capsulas, skills y creditos.</div></article></div>
-
-    <h3 class="reveal" style="font-size:var(--step-2);margin:3.5rem 0 1.4rem">Arbol de metricas — del norte a producto, growth y revenue</h3>
-    <div class="grid g3"><article class="card treecol reveal">
-      <div class="lab"><span class="dot growth"></span>Adquisicion</div>
-      <p>Comunidad y contenido producen leads que entran a diagnostico.</p><div class="kv"><small>Qualified leads / mes</small><b>1,200</b></div><div class="kv"><small>CAC blended</small><b>&lt;$30</b></div></article><article class="card treecol reveal">
-      <div class="lab"><span class="dot indigo"></span>Activacion</div>
-      <p>El usuario entiende su punto de partida y arranca una primera skill.</p><div class="kv"><small>Path generated / mes</small><b>403 → 900</b></div><div class="kv"><small>Time to first skill</small><b>&lt;7d → &lt;24h</b></div></article><article class="card treecol reveal">
-      <div class="lab"><span class="dot violet"></span>Evidencia y calidad</div>
-      <p>La ruta solo vale si produce entregables validables.</p><div class="kv"><small>Rubric pass score</small><b>78 → &gt;82</b></div><div class="kv"><small>Verified skill rate</small><b>sube</b></div></article><article class="card treecol reveal">
-      <div class="lab"><span class="dot indigo"></span>Lifecycle</div>
-      <p>El usuario vuelve porque ve progreso profesional acumulable.</p><div class="kv"><small>Skills / user / month</small><b>0.17 → 0.40</b></div><div class="kv"><small>Next skill start</small><b>activar</b></div></article><article class="card treecol reveal">
-      <div class="lab"><span class="dot green"></span>Monetizacion</div>
-      <p>La evidencia abre pago por suscripcion, creditos, certificacion y B2B.</p><div class="kv"><small>Total MRR</small><b>$5,150 → $30k</b></div><div class="kv"><small>LTV / CAC</small><b>3.1x → &gt;3x</b></div></article><article class="card treecol reveal">
-      <div class="lab"><span class="dot violet"></span>Ops / IA</div>
-      <p>El live crea confianza; la plataforma la convierte en activos reutilizables.</p><div class="kv"><small>Support cost / user</small><b>$2.8 → &lt;$1.5</b></div><div class="kv"><small>AI extraction accuracy</small><b>&gt;70–85%</b></div></article></div>
-
-    <h3 class="reveal" style="font-size:var(--step-2);margin:3.5rem 0 1.4rem">Funnel maestro — de visita a skill verificada y pago</h3>
-    <div class="funnel"><div class="fstep reveal"><div><div class="n">Visitante</div><small>Trafico con intencion, no academia generica.</small></div>
-      <div style="text-align:right"><div class="v mono">1000</div><small>100%</small></div></div><div class="fstep reveal"><div><div class="n">Registro</div><small>CTA = diagnosticar skill gap, no comprar curso.</small></div>
-      <div style="text-align:right"><div class="v mono">20–28%</div><small>activacion</small></div></div><div class="fstep reveal"><div><div class="n">Skill start</div><small>Mostrar una skill pequena y accionable hoy.</small></div>
-      <div style="text-align:right"><div class="v mono">ruta</div><small>primer valor</small></div></div><div class="fstep reveal"><div><div class="n">Evidencia</div><small>Ejemplo, rubrica y entregable claro.</small></div>
-      <div style="text-align:right"><div class="v mono">entregable</div><small>calidad</small></div></div><div class="fstep reveal"><div><div class="n">Skill verified</div><small>Feedback rapido = sensacion de progreso.</small></div>
-      <div style="text-align:right"><div class="v mono">validada</div><small>progreso</small></div></div><div class="fstep reveal"><div><div class="n">Pago</div><small>Pago ligado a certificacion o desbloqueo de ruta.</small></div>
-      <div style="text-align:right"><div class="v mono">79 subs</div><small>revenue</small></div></div></div>
-  </div>
-</section>
-
-<!-- ECONOMICS -->
-<section id="economics" aria-label="Unit economics">
-  <div class="wrap">
-    <div class="kicker reveal">Unit economics</div>
-    <h2 class="h-sec reveal">Si cada cliente deja mas valor del que cuesta adquirirlo.</h2>
-    <p class="lead reveal">CAC, LTV, margen, payback, burn y runway explican si el crecimiento es financiable. Si CAC o burn suben sin retencion, el crecimiento destruye caja.</p>
-    <div class="grid g4" style="margin-top:2.2rem"><article class="card reveal"><div class="hd" style="display:flex;justify-content:space-between;align-items:baseline">
-      <h3 style="font-size:var(--step-0)">LTV / CAC</h3><span class="delta mono">&gt;3x</span></div>
-      <p style="color:var(--fg-muted);font-size:.86rem;margin-top:.5rem">Cada cliente deja mas valor del que cuesta adquirirlo.</p></article><article class="card reveal"><div class="hd" style="display:flex;justify-content:space-between;align-items:baseline">
-      <h3 style="font-size:var(--step-0)">CAC payback</h3><span class="delta mono">&lt;6 meses</span></div>
-      <p style="color:var(--fg-muted);font-size:.86rem;margin-top:.5rem">Velocidad de recuperacion de la inversion comercial.</p></article><article class="card reveal"><div class="hd" style="display:flex;justify-content:space-between;align-items:baseline">
-      <h3 style="font-size:var(--step-0)">Margen bruto hibrido</h3><span class="delta mono">&gt;60%</span></div>
-      <p style="color:var(--fg-muted);font-size:.86rem;margin-top:.5rem">Sube margen digital, baja dependencia de horas sincronas.</p></article><article class="card reveal"><div class="hd" style="display:flex;justify-content:space-between;align-items:baseline">
-      <h3 style="font-size:var(--step-0)">Runway</h3><span class="delta mono">12–18 meses</span></div>
-      <p style="color:var(--fg-muted);font-size:.86rem;margin-top:.5rem">Caja para ejecutar hitos antes de levantar.</p></article></div>
-  </div>
-</section>
-
-<!-- GTM / EQUIPO -->
-<section id="gtm" aria-label="Go-to-market y escalabilidad">
-  <div class="wrap">
-    <div class="kicker reveal">Go-To-Market · Escalabilidad</div>
-    <h2 class="h-sec reveal">De comunidad a plataforma; de horas a activos reutilizables.</h2>
-    <div class="grid g2" style="margin-top:2rem">
-      <article class="card reveal"><span class="tag">GTM</span><p style="color:var(--fg-muted);margin-top:.8rem">Entrar por contenido, webinars, diagnostico gratuito, ruta recomendada, skill express, evidencia, certificado y upsell a creditos, cohortes o plan empresa. <b style="color:var(--fg)">La activacion no es registro; es el primer skill start con evidencia.</b></p></article>
-      <article class="card reveal"><span class="tag green">Escala</span><p style="color:var(--fg-muted);margin-top:.8rem">Escala si sube el margen digital y baja la dependencia de horas sincronas. Cada live se convierte en capsulas, skills y creditos — ingresos escalables &gt;30–50% en MVP.</p></article>
-    </div>
-  </div>
-</section>
-
-<section id="equipo" aria-label="Equipo y red">
-  <div class="wrap">
-    <div class="kicker reveal">Equipo · Red</div>
-    <h2 class="h-sec reveal">El jurado compra velocidad de aprendizaje del equipo, no solo la idea.</h2>
-    <div class="grid g2" style="margin-top:2rem">
-      <article class="card reveal"><span class="tag">Founder-market fit</span><p style="color:var(--fg-muted);margin-top:.8rem">El equipo comunica dominio AEC, criterio de producto, capacidad de comunidad, operacion educativa, IA aplicada, alianzas y ejecucion tecnica.</p></article>
-      <article class="card reveal"><span class="tag green">Ecosistema</span><p style="color:var(--fg-muted);margin-top:.8rem">Instructores, empresas, universidades, gremios, comunidades, eventos, sponsors y aliados tecnologicos amplian distribucion, confianza y profundidad. El partner ideal aporta audiencia, casos reales, certificacion, datos o demanda B2B.</p></article>
-    </div>
-  </div>
-</section>
-
-<!-- ACCIONES -->
-<section id="acciones" aria-label="Roadmap de acciones">
-  <div class="wrap">
-    <div class="kicker reveal">Roadmap accionable</div>
-    <h2 class="h-sec reveal">Lo que mueve la aguja antes de levantar.</h2>
-    <ul class="checklist" style="margin-top:2.2rem"><li class="reveal"><span>Definir la primera ruta wedge con mayor dolor, evidencia y disposicion de pago.</span></li><li class="reveal"><span>Separar P&amp;L de live, plataforma e hibrido para no confundir caja con escalabilidad.</span></li><li class="reveal"><span>Medir semanal: registro, diagnostico, skill start, evidencia, feedback, verificacion y pago.</span></li><li class="reveal"><span>Convertir cada curso live en capsulas, skills, rubricas y evidencias reutilizables.</span></li><li class="reveal"><span>Lanzar piloto B2B de 30 dias con brecha por rol, 3 skills y reporte de resultados.</span></li><li class="reveal"><span>Versionar el Skill Graph AEC como activo central de producto.</span></li><li class="reveal"><span>Crear data room con metricas reales, supuestos separados y benchmarks citados.</span></li><li class="reveal"><span>Calcular CAC, LTV, margen bruto, churn, payback, burn y runway antes de levantar.</span></li></ul>
-    <div class="card reveal" style="margin-top:2.5rem;text-align:center;background:linear-gradient(120deg,color-mix(in oklch,var(--indigo) 22%,var(--bg2)),var(--bg2))">
-      <h3 style="font-size:var(--step-2)">AECODE: aprender, practicar, evidenciar, certificar y crecer.</h3>
-      <p style="color:var(--fg-muted);max-width:48ch;margin:.8rem auto 1.4rem">Talento AEC verificable, en espanol. Solicita el data room con metricas reales, supuestos separados y benchmarks citados.</p>
-      <div class="cta"><a class="btn primary" href="mailto:apalpan@genplusdesign.com?subject=AECODE%20Data%20Room">Solicitar data room</a><button class="btn ghost" data-cmd>Buscar seccion ⌘K</button></div>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <div style="display:flex;align-items:center;gap:.6rem"><img src="aecode-logo.svg" width="22" height="22" alt=""><span>AECODE © <span id="yr">2026</span> · Learning Operating System AEC</span></div>
-    <span class="safe">● Reporte public-safe · datos mock, rangos y supuestos separados de metricas reales</span>
-  </div>
-</footer>
-
-<!-- command menu -->
-<div class="cmdk-back" role="dialog" aria-modal="true" aria-label="Buscar seccion">
-  <div class="cmdk">
-    <input type="text" placeholder="Buscar seccion… (North Star, Modelo, Metricas)" aria-label="Buscar">
-    <ul role="listbox"><li role="option" data-k="north star norte" data-go="norte">North Star<small>↵</small></li><li role="option" data-k="problema problema" data-go="problema">Problema<small>↵</small></li><li role="option" data-k="producto producto" data-go="producto">Producto<small>↵</small></li><li role="option" data-k="modelo modelo" data-go="modelo">Modelo<small>↵</small></li><li role="option" data-k="mercado mercado" data-go="mercado">Mercado<small>↵</small></li><li role="option" data-k="metricas metricas" data-go="metricas">Metricas<small>↵</small></li><li role="option" data-k="unit economics economics" data-go="economics">Unit economics<small>↵</small></li><li role="option" data-k="gtm gtm" data-go="gtm">GTM<small>↵</small></li><li role="option" data-k="equipo equipo" data-go="equipo">Equipo<small>↵</small></li><li role="option" data-k="roadmap acciones" data-go="acciones">Roadmap<small>↵</small></li></ul>
-  </div>
-</div>
-
-<!-- AECODITO assistant -->
-<button class="fab" aria-label="Abrir AECODITO" aria-expanded="false"><img src="aecodito.png" alt=""><span>AECODITO</span></button>
-<aside class="panel" aria-label="Resumen AECODITO">
-  <h4>Resumen en 30 segundos</h4>
-  <p class="a">Lo esencial del reporte AECODE para jurado e inversionista.</p>
-  <div class="q">Que es AECODE</div><div class="a">Plataforma educativa inteligente para profesionales AEC: convierte cada clase en una skill practicada, evidenciada, validada y acumulable.</div><div class="q">North Star</div><div class="a">Skills verificadas con evidencia / usuarios activos mensuales. Actual 0.17 (72/420), meta beta 0.40 (300/750).</div><div class="q">Modelo</div><div class="a">Hibrido: Live Training (caja) + Microlearning Skill OS (recurrencia) + Enterprise + Credentials. MRR total $5,150.</div><div class="q">Wedge</div><div class="a">Profesional AEC que necesita empleabilidad digital; segundo mercado: empresa AEC con brechas BIM, IA, VDC o productividad.</div><div class="q">Por que ahora</div><div class="a">La IA acelera la obsolescencia tecnica y permite personalizar a escala. BIM, datos y automatizacion ya son requisitos operativos.</div><div class="q">Por que gana</div><div class="a">Tesis clara, mercado con brecha creciente, comunidad vertical y una metrica que no se puede maquillar: skills verificadas con evidencia real.</div>
-</aside>
-
-<script>
+JS = r"""
 // scroll progress
 const prog=document.querySelector('.prog');
 let ticking=false;
@@ -610,6 +462,323 @@ fab.addEventListener('click',()=>panel.classList.toggle('open'));
 document.addEventListener('click',e=>{if(panel.classList.contains('open')&&!panel.contains(e.target)&&!fab.contains(e.target))panel.classList.remove('open');});
 
 document.getElementById('yr').textContent=new Date().getFullYear();
-</script>
+"""
+
+
+# =============================================================================
+#  HTML BUILDERS
+# =============================================================================
+
+def esc(s):
+    return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+
+def stat_html(s):
+    big, lab, meta, num, pre, suf, dec, sep = s
+    return f"""<div class="stat reveal">
+      <div class="big mono" data-count="{num}" data-dec="{dec}" data-pre="{pre}" data-suf="{suf}" data-sep="{1 if sep else 0}">{esc(pre)}0{esc(suf)}</div>
+      <div class="lab">{esc(lab)}</div><div class="meta">{esc(meta)}</div></div>"""
+
+
+def engine_html(e):
+    kpis = "".join(f'<div class="kv"><small>{esc(k)}</small><b>{esc(v)} <span class="tag {"assume" if t in ("supuesto","pipeline") else "green"}">{esc(t)}</span></b></div>' for k, v, t in e["kpis"])
+    return f"""<article class="card engine {e['accent']} reveal">
+      <div class="top"><h3>{esc(e['name'])}</h3><div class="mrr mono">{esc(e['mrr'])}<span style="font-size:.5em;color:var(--fg-muted)"> /mes</span></div></div>
+      <span class="tag">{esc(e['tag'])}</span>
+      <p style="color:var(--fg-muted);font-size:.9rem">{esc(e['desc'])}</p>
+      <div style="margin-top:.3rem">{kpis}</div>
+      <div class="barrow"><span>mix actual</span><div class="bar"><i style="width:{e['share_now']}%"></i></div><span class="v">{e['share_now']}%</span></div>
+      <div class="barrow"><span>mix objetivo</span><div class="bar"><i style="width:{e['share_goal']}%;background:linear-gradient(90deg,var(--green),var(--violet))"></i></div><span class="v">{e['share_goal']}%</span></div>
+    </article>"""
+
+
+def metric_html(m):
+    name, cat, why, rng, dec, nsm = m
+    star = ' <span class="tag green">NSM</span>' if nsm else ""
+    return f"""<article class="card metric reveal">
+      <div class="hd"><h3>{esc(name)}{star}</h3><span class="tag assume">{esc(cat)}</span></div>
+      <p class="why">{esc(why)}</p>
+      <div class="range">Rango sano: {esc(rng)}</div>
+      <div class="dec"><b>Decision &rsaquo;</b> {esc(dec)}</div></article>"""
+
+
+def tree_html(t):
+    name, color, desc, rows = t
+    kv = "".join(f'<div class="kv"><small>{esc(k)}</small><b>{esc(v)}</b></div>' for k, v, note in rows)
+    return f"""<article class="card treecol reveal">
+      <div class="lab"><span class="dot {color}"></span>{esc(name)}</div>
+      <p>{esc(desc)}</p>{kv}</article>"""
+
+
+def funnel_html(f):
+    n, v, note, sub = f
+    return f"""<div class="fstep reveal"><div><div class="n">{esc(n)}</div><small>{esc(sub)}</small></div>
+      <div style="text-align:right"><div class="v mono">{esc(v)}</div><small>{esc(note)}</small></div></div>"""
+
+
+def econ_html(e):
+    name, now, target, why = e
+    return f"""<article class="card reveal"><div class="hd" style="display:flex;justify-content:space-between;align-items:baseline">
+      <h3 style="font-size:var(--step-0)">{esc(name)}</h3><span class="delta mono">{esc(target)}</span></div>
+      <p style="color:var(--fg-muted);font-size:.86rem;margin-top:.5rem">{esc(why)}</p></article>"""
+
+
+# nav
+navlinks = "".join(f'<a href="#{i}">{esc(t)}</a>' for i, t in NAV)
+cmd_items = "".join(
+    f'<li role="option" data-k="{esc(t.lower())} {i}" data-go="{i}">{esc(t)}<small>↵</small></li>'
+    for i, t in NAV
+)
+
+principios = "".join(
+    f'<article class="card reveal"><span class="tag">{n:02d}</span><h3 style="font-size:var(--step-0);margin-top:.7rem">{esc(p[0])}</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.4rem">{esc(p[1])}</p></article>'
+    for n, p in enumerate(PRINCIPIOS, 1)
+)
+engines = "".join(engine_html(e) for e in ENGINES)
+metrics = "".join(metric_html(m) for m in METRICS)
+tree = "".join(tree_html(t) for t in TREE)
+funnel = "".join(funnel_html(f) for f in FUNNEL)
+economics = "".join(econ_html(e) for e in ECONOMICS)
+acciones = "".join(f'<li class="reveal"><span>{esc(a)}</span></li>' for a in ACCIONES)
+stats = "".join(stat_html(s) for s in HERO_STATS)
+facts = "".join(f'<div class="q">{esc(q)}</div><div class="a">{esc(a)}</div>' for q, a in FACTS)
+
+
+# =============================================================================
+#  PAGE
+# =============================================================================
+
+DESC = "Reporte de inteligencia AECODE: el Learning Operating System para la fuerza laboral AEC en espanol. Modelo hibrido, North Star, metricas y unit economics — public-safe."
+
+PAGE = f"""<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AECODE — Startup Intelligence Report</title>
+<meta name="description" content="{esc(DESC)}">
+<meta name="theme-color" content="#0B0D1A">
+<link rel="icon" href="aecode-logo.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AECODE — Startup Intelligence Report">
+<meta property="og:description" content="{esc(DESC)}">
+<meta property="og:image" content="aecodito.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>{CSS}</style>
+</head>
+<body>
+<div class="prog"></div>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="aecode-logo.svg" alt="AECODE"><span>AECODE<b>.</b></span></a>
+    <nav class="navlinks" aria-label="Secciones">{navlinks}</nav>
+    <div class="nav-actions">
+      <button class="kbd" data-cmd aria-label="Abrir buscador de comandos"><kbd>⌘</kbd><kbd>K</kbd> buscar</button>
+      <a class="btn primary" href="#acciones">Data room</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero" aria-label="Portada">
+  <div class="wrap">
+    <img class="orb reveal" src="aecodito.png" alt="AECODITO, mascota IA de AECODE" width="150" height="150">
+    <div class="kicker reveal" style="justify-content:center">Learning Operating System · Sector AEC</div>
+    <h1 class="reveal">El sistema que convierte aprendizaje AEC en <span class="grad">skills verificadas</span>.</h1>
+    <p class="sub reveal">Plataforma de aprendizaje AEC inteligente, practica y certificable. Cada curso se vuelve ruta, practica, evidencia, feedback y certificacion — progreso profesional medible, no horas de clase.</p>
+    <div class="chips reveal">
+      <span class="chip"><b>Modelo</b> Live Training + Microlearning</span>
+      <span class="chip"><b>Wedge</b> Profesionales AEC digitales</span>
+      <span class="chip"><b>NSM</b> Skills verificadas / MAU</span>
+    </div>
+    <div class="cta reveal">
+      <a class="btn primary" href="#producto">Ver el producto</a>
+      <a class="btn ghost" href="#metricas">Explorar metricas</a>
+    </div>
+    <div class="stats">{stats}</div>
+    <p class="lema reveal">La Ingenieria &amp; Construccion Moderna, <b>te la contamos nosotros.</b></p>
+  </div>
+</section>
+
+<!-- NORTH STAR -->
+<section id="norte" aria-label="North Star">
+  <div class="wrap">
+    <div class="kicker reveal">North Star Metric</div>
+    <h2 class="h-sec reveal">Una metrica que no se puede maquillar.</h2>
+    <div class="ns" style="margin-top:2rem">
+      <div class="reveal">
+        <div class="formula">skills_verified_with_evidence <span style="color:var(--violet)">/</span> monthly_active_users</div>
+        <div class="nspair">
+          <div class="nsbox"><div class="v muted mono">0.17</div><small>Actual · 72 / 420</small></div>
+          <div class="nsbox"><div class="v hot mono">0.40</div><small>Meta beta · 300 / 750</small></div>
+          <div class="nsbox"><div class="v mono">&gt;0.8</div><small>En escala</small></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <p class="yn y"><b>Cuenta cuando:</b> el usuario inicia una skill, completa una practica, sube un entregable, recibe validacion y la skill queda en su Skill Passport.</p>
+        <p class="yn n"><b>No cuenta:</b> solo ver una clase, asistir a un live, descargar material o recibir un certificado sin evidencia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA / SOLUCION -->
+<section id="problema" aria-label="Problema y solucion">
+  <div class="wrap">
+    <div class="kicker reveal">Problema · Solucion</div>
+    <h2 class="h-sec reveal">El problema no es que falten cursos. Es que no se vuelven progreso verificable.</h2>
+    <div class="grid g2" style="margin-top:2rem">
+      <article class="card reveal"><span class="tag assume">Dolor transversal</span>
+        <h3 style="font-size:var(--step-1);margin-top:.8rem">Aprendizaje sin evidencia</h3>
+        <p style="color:var(--fg-muted);margin-top:.6rem">La pregunta no es si faltan cursos; es quien ordena, valida y mide talento AEC. El aprendizaje no siempre se convierte en progreso verificable.</p></article>
+      <article class="card reveal"><span class="tag green">Loop central</span>
+        <h3 style="font-size:var(--step-1);margin-top:.8rem">Aprende → practica → evidencia → valida → acumula</h3>
+        <p style="color:var(--fg-muted);margin-top:.6rem">Idea madre: cada curso se convierte en ruta, practica, evidencia, feedback y certificacion. Unidad de valor: <b style="color:var(--fg)">skill verificada con evidencia</b>, no hora de clase.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTO -->
+<section id="producto" aria-label="Producto">
+  <div class="wrap">
+    <div class="kicker reveal">Producto</div>
+    <h2 class="h-sec reveal">AECODE diagnostica, recomienda, divide en capsulas, valida evidencias y acumula skills.</h2>
+    <p class="lead reveal">El progreso conecta lo nuevo con lo que el usuario ya sabe y recomienda el siguiente skill. IA como recomendador, coach y apoyo de evaluacion.</p>
+    <div class="grid g3" style="margin-top:2.2rem">{principios}</div>
+  </div>
+</section>
+
+<!-- MODELO -->
+<section id="modelo" aria-label="Modelo de negocio">
+  <div class="wrap">
+    <div class="kicker reveal">Modelo hibrido</div>
+    <h2 class="h-sec reveal">Cuatro motores. Caja hoy, recurrencia manana.</h2>
+    <p class="lead reveal">Actual: 60% Live Training y 25% Microlearning. Objetivo: migrar a 60% Microlearning Skill OS y 25% Live Training — de horas sincronas a activos digitales reutilizables.</p>
+    <div class="grid g2" style="margin-top:2.2rem">{engines}</div>
+    <div class="card reveal" style="margin-top:1.4rem">
+      <h3 style="font-size:var(--step-1)">Logica de migracion</h3>
+      <div class="grid g2" style="margin-top:1rem">
+        <p style="color:var(--fg-muted);font-size:.9rem">Cada curso live se vuelve capsulas, practicas, rubricas y evidencias reutilizables. Cada usuario live recibe una ruta Microlearning y creditos iniciales para validar su primera skill.</p>
+        <p style="color:var(--fg-muted);font-size:.9rem">Cada evidencia validada alimenta el Skill Passport y genera datos para recomendaciones de IA. El objetivo: migrar de 60% Live a 60% Microlearning Skill OS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MERCADO -->
+<section id="mercado" aria-label="Mercado y ventaja">
+  <div class="wrap">
+    <div class="kicker reveal">Mercado · ICP · Moat</div>
+    <h2 class="h-sec reveal">AEC LatAm primero, con un moat que no es el contenido.</h2>
+    <div class="grid g3" style="margin-top:2rem">
+      <article class="card reveal"><span class="tag">ICP</span><h3 style="font-size:var(--step-0);margin-top:.7rem">A quien servimos</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.5rem">B2C: profesionales AEC que buscan empleabilidad digital. B2B: empresas con brechas BIM, IA, VDC, datos o productividad que necesitan upskilling medible.</p></article>
+      <article class="card reveal"><span class="tag green">Moat</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Ventaja competitiva</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.5rem">El moat es la red entre skill, evidencia, rol, feedback y demanda de mercado — no el contenido aislado. Verticalidad y data moat.</p></article>
+      <article class="card reveal"><span class="tag assume">vs. mercado</span><h3 style="font-size:var(--step-0);margin-top:.7rem">Diferenciacion</h3><p style="color:var(--fg-muted);font-size:.88rem;margin-top:.5rem">Udemy organiza cursos. YouTube distribuye tutoriales. AECODE convierte aprendizaje AEC en skills verificables y datos de talento.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- METRICAS -->
+<section id="metricas" aria-label="Metricas">
+  <div class="wrap">
+    <div class="kicker reveal">Como medimos el progreso</div>
+    <h2 class="h-sec reveal">Metricas en orden de prioridad, en lenguaje ejecutivo.</h2>
+    <p class="lead reveal">La prioridad no es medir todo. Es medir si el usuario aprende, practica, sube evidencia, certifica una skill, vuelve y paga por seguir avanzando.</p>
+    <div class="grid g2" style="margin-top:2.2rem">{metrics}</div>
+
+    <h3 class="reveal" style="font-size:var(--step-2);margin:3.5rem 0 1.4rem">Arbol de metricas — del norte a producto, growth y revenue</h3>
+    <div class="grid g3">{tree}</div>
+
+    <h3 class="reveal" style="font-size:var(--step-2);margin:3.5rem 0 1.4rem">Funnel maestro — de visita a skill verificada y pago</h3>
+    <div class="funnel">{funnel}</div>
+  </div>
+</section>
+
+<!-- ECONOMICS -->
+<section id="economics" aria-label="Unit economics">
+  <div class="wrap">
+    <div class="kicker reveal">Unit economics</div>
+    <h2 class="h-sec reveal">Si cada cliente deja mas valor del que cuesta adquirirlo.</h2>
+    <p class="lead reveal">CAC, LTV, margen, payback, burn y runway explican si el crecimiento es financiable. Si CAC o burn suben sin retencion, el crecimiento destruye caja.</p>
+    <div class="grid g4" style="margin-top:2.2rem">{economics}</div>
+  </div>
+</section>
+
+<!-- GTM / EQUIPO -->
+<section id="gtm" aria-label="Go-to-market y escalabilidad">
+  <div class="wrap">
+    <div class="kicker reveal">Go-To-Market · Escalabilidad</div>
+    <h2 class="h-sec reveal">De comunidad a plataforma; de horas a activos reutilizables.</h2>
+    <div class="grid g2" style="margin-top:2rem">
+      <article class="card reveal"><span class="tag">GTM</span><p style="color:var(--fg-muted);margin-top:.8rem">Entrar por contenido, webinars, diagnostico gratuito, ruta recomendada, skill express, evidencia, certificado y upsell a creditos, cohortes o plan empresa. <b style="color:var(--fg)">La activacion no es registro; es el primer skill start con evidencia.</b></p></article>
+      <article class="card reveal"><span class="tag green">Escala</span><p style="color:var(--fg-muted);margin-top:.8rem">Escala si sube el margen digital y baja la dependencia de horas sincronas. Cada live se convierte en capsulas, skills y creditos — ingresos escalables &gt;30–50% en MVP.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="equipo" aria-label="Equipo y red">
+  <div class="wrap">
+    <div class="kicker reveal">Equipo · Red</div>
+    <h2 class="h-sec reveal">El jurado compra velocidad de aprendizaje del equipo, no solo la idea.</h2>
+    <div class="grid g2" style="margin-top:2rem">
+      <article class="card reveal"><span class="tag">Founder-market fit</span><p style="color:var(--fg-muted);margin-top:.8rem">El equipo comunica dominio AEC, criterio de producto, capacidad de comunidad, operacion educativa, IA aplicada, alianzas y ejecucion tecnica.</p></article>
+      <article class="card reveal"><span class="tag green">Ecosistema</span><p style="color:var(--fg-muted);margin-top:.8rem">Instructores, empresas, universidades, gremios, comunidades, eventos, sponsors y aliados tecnologicos amplian distribucion, confianza y profundidad. El partner ideal aporta audiencia, casos reales, certificacion, datos o demanda B2B.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ACCIONES -->
+<section id="acciones" aria-label="Roadmap de acciones">
+  <div class="wrap">
+    <div class="kicker reveal">Roadmap accionable</div>
+    <h2 class="h-sec reveal">Lo que mueve la aguja antes de levantar.</h2>
+    <ul class="checklist" style="margin-top:2.2rem">{acciones}</ul>
+    <div class="card reveal" style="margin-top:2.5rem;text-align:center;background:linear-gradient(120deg,color-mix(in oklch,var(--indigo) 22%,var(--bg2)),var(--bg2))">
+      <h3 style="font-size:var(--step-2)">AECODE: aprender, practicar, evidenciar, certificar y crecer.</h3>
+      <p style="color:var(--fg-muted);max-width:48ch;margin:.8rem auto 1.4rem">Talento AEC verificable, en espanol. Solicita el data room con metricas reales, supuestos separados y benchmarks citados.</p>
+      <div class="cta"><a class="btn primary" href="mailto:apalpan@genplusdesign.com?subject=AECODE%20Data%20Room">Solicitar data room</a><button class="btn ghost" data-cmd>Buscar seccion ⌘K</button></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:flex;align-items:center;gap:.6rem"><img src="aecode-logo.svg" width="22" height="22" alt=""><span>AECODE © <span id="yr">2026</span> · Learning Operating System AEC</span></div>
+    <span class="safe">● Reporte public-safe · datos mock, rangos y supuestos separados de metricas reales</span>
+  </div>
+</footer>
+
+<!-- command menu -->
+<div class="cmdk-back" role="dialog" aria-modal="true" aria-label="Buscar seccion">
+  <div class="cmdk">
+    <input type="text" placeholder="Buscar seccion… (North Star, Modelo, Metricas)" aria-label="Buscar">
+    <ul role="listbox">{cmd_items}</ul>
+  </div>
+</div>
+
+<!-- AECODITO assistant -->
+<button class="fab" aria-label="Abrir AECODITO" aria-expanded="false"><img src="aecodito.png" alt=""><span>AECODITO</span></button>
+<aside class="panel" aria-label="Resumen AECODITO">
+  <h4>Resumen en 30 segundos</h4>
+  <p class="a">Lo esencial del reporte AECODE para jurado e inversionista.</p>
+  {facts}
+</aside>
+
+<script>{JS}</script>
 </body>
-</html>
+</html>"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(PAGE)
+
+print("index.html generado:", len(PAGE), "bytes")
